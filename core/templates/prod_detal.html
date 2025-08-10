@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ produto.name }} - Hortifruti{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/produtos.css' %}">
+
+<div class="produto-detalhe-container">
+  {% if produto %}
+    <div class="produto-detalhe-box">
+      {% if produto.image %}
+        <img src="{{ produto.image.url }}" alt="{{ produto.name }}" class="produto-detalhe-img">
+      {% else %}
+        <div class="produto-detalhe-img vazio">Sem imagem</div>
+      {% endif %}
+
+      <div class="produto-detalhe-info">
+        <h1>{{ produto.name }}</h1>
+        
+        {% if produto.promocao %}
+          <p class="price" style="color: red; text-decoration: line-through;">
+            R$ {{ produto.value|floatformat:2 }}
+          </p>
+          <p class="price" style="color: green; font-weight: bold;">
+            R$ {{ produto.promocao.new_value|floatformat:2 }} / {{ produto.medida.medida }}
+          </p>
+        {% else %}
+          <p class="price">
+            R$ {{ produto.value|floatformat:2 }} / {{ produto.medida.medida }}
+          </p>
+        {% endif %}
+
+        <p class="categoria">Categoria: {{ produto.category.name }}</p>
+
+        {% if produto.description %}
+          <p class="descricao">{{ produto.description }}</p>
+        {% else %}
+          <p class="descricao">Este produto ainda não possui uma descrição.</p>
+        {% endif %}
+
+        {% include 'includes/form_quantidade.html' %}
+
+        <a href="{% url 'lista_produtos' %}" class="btn-voltar">← Voltar</a>
+      </div>
+    </div>
+  {% else %}
+    <p class="no-results">Nenhum produto encontrado.</p>
+  {% endif %}
+</div>
+{% endblock %}

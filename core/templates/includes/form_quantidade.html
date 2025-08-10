@@ -1,0 +1,86 @@
+<form action="{% url 'adicionar_ao_carrinho' %}" method="post" class="add-to-cart-form">
+  {% csrf_token %}
+  <input type="hidden" name="produto_id" value="{{ produto.id }}">
+  
+  <div class="quantidade-controls">
+    <button type="button" class="btn-quantidade" id="btn-minus">-</button>
+    <input type="number" name="quantidade" value="1" min="1" class="quantidade-input" id="quantidade">
+    <button type="button" class="btn-quantidade" id="btn-plus">+</button>
+  </div>
+  
+  <button type="submit" class="btn-adicionar-carrinho">Adicionar ao Carrinho</button>
+</form>
+
+<script>
+  const btnPlus = document.getElementById('btn-plus');
+  const btnMinus = document.getElementById('btn-minus');
+  const quantidadeInput = document.getElementById('quantidade');
+
+  btnPlus.addEventListener('click', () => {
+    quantidadeInput.value = Math.max(1, parseInt(quantidadeInput.value) + 1);
+  });
+
+  btnMinus.addEventListener('click', () => {
+    const currentValue = parseInt(quantidadeInput.value);
+    if (currentValue > 1) {
+      quantidadeInput.value = currentValue - 1;
+    }
+  });
+
+  quantidadeInput.addEventListener('input', () => {
+    if (quantidadeInput.value < 1) {
+      quantidadeInput.value = 1;
+    }
+  });
+</script>
+
+<style>
+  .add-to-cart-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .quantidade-controls {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+  .quantidade-input {
+    width: 60px;
+    text-align: center;
+    border: none;
+    padding: 8px 0;
+    font-size: 16px;
+  }
+  .quantidade-input::-webkit-outer-spin-button,
+  .quantidade-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .btn-quantidade {
+    background-color: #f8f8f8;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+  }
+  .btn-quantidade:hover {
+    background-color: #eee;
+  }
+  .btn-adicionar-carrinho {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .btn-adicionar-carrinho:hover {
+    background-color: #45a049;
+  }
+</style>

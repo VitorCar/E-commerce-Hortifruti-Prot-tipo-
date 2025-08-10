@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Produtos - Hortifruti{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/produtos.css' %}">
+
+<h1 style="text-align: center; margin-bottom: 30px;">Lista de Grãos</h1>
+
+<div class="search-form-container">
+  <form method="GET" action="{% url 'grao' %}">
+    <input type="text" name="search" placeholder="Buscar por nome..." value="{{ request.GET.search }}">
+    <button type="submit">Buscar</button>
+  </form>
+</div>
+
+<div class="produto-grid">
+  {% if graos %}
+    {% for grao in graos %}
+      <div class="produto-card">
+        {% if grao.image %}
+          <img src="{{ grao.image.url }}" alt="{{ grao.name }}" class="grao-img">
+        {% else %}
+          <div style="height: 200px; background-color: #eee; display: flex; align-items: center; justify-content: center; color: #999;">
+            Sem imagem
+          </div>
+        {% endif %}
+        {% if grao.promocao %}
+          <div class="promo-badge">Promoção</div>
+        {% endif %}
+        <div class="produto-card-content">
+          <h3>{{ grao.name }}</h3>
+          {% if grao.promocao %}
+            <p class="price" style="color: red; text-decoration: line-through;">
+              R$ {{ grao.value|floatformat:2 }}
+            </p>
+            <p class="price" style="color: green; font-weight: bold;">
+              R$ {{ grao.promocao.new_value|floatformat:2 }} / {{ grao.medida.medida }}
+            </p>
+          {% else %}
+            <p class="price">
+              R$ {{ grao.value|floatformat:2 }} / {{ grao.medida.medida }}
+            </p>
+          {% endif %}
+          <p>Categoria: {{ grao.category.name }}</p>
+          <a href="{% url 'produto_detail' grao.pk %}" class="produto-btn">Comprar</a>
+
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="no-results">Nenhum grao encontrado.</p>
+  {% endif %}
+</div>
+{% endblock %}

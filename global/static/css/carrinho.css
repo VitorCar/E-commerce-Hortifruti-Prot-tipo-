@@ -1,0 +1,118 @@
+
+.carrinho-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: var(--light-text);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px var(--shadow-light);
+}
+
+
+.carrinho-container h1 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 32px;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+
+.carrinho-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.carrinho-tabela th, .carrinho-tabela td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.carrinho-tabela th {
+    background-color: #f0f0f0;
+    color: var(--secondary-color);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.carrinho-tabela tr:last-child td {
+    border-bottom: none;
+}
+
+.carrinho-tabela tbody tr:hover {
+    background-color: #fafafa;
+}
+
+
+.carrinho-tabela td p {
+    font-weight: 600;
+    color: var(--dark-text);
+    margin: 0;
+}
+
+.carrinho-tabela td small {
+    color: #888;
+    font-size: 14px;
+}
+
+
+.quantidade-display {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+
+.resumo-carrinho {
+    border-top: 2px solid var(--border-color);
+    padding-top: 20px;
+    text-align: right;
+}
+
+.resumo-carrinho h3 {
+    font-size: 24px;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.resumo-carrinho p {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--dark-text);
+}
+
+.resumo-carrinho p span {
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+/* Botão de finalizar compra */
+.btn-finalizar-compra {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: var(--light-text);
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(255, 152, 0, 0.2);
+}
+
+.btn-finalizar-compra:hover {
+    background-color: #e68a00;
+    transform: translateY(-2px);
+}
+
+/* Mensagem de carrinho vazio */
+.carrinho-vazio {
+    text-align: center;
+    font-size: 20px;
+    color: var(--secondary-color);
+    padding: 50px;
+}

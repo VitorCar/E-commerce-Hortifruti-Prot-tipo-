@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}Meus Endereços{% endblock %}
+
+{% block content %}
+<style>
+    .add-address-btn {
+        display: inline-block;
+        background-color: var(--primary-color); /* Cor principal do tema */
+        color: var(--light-text);
+        padding: 12px 25px;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+    .add-address-btn:hover {
+        background-color: var(--secondary-color); 
+        transform: translateY(-2px);
+    }
+    
+    .address-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+    .address-card {
+        background-color: var(--light-text);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 25px;
+        width: 100%;
+        max-width: 350px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        transition: box-shadow 0.3s ease;
+    }
+    .address-card:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+    .address-card h3 {
+        color: var(--primary-color);
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    .address-card p {
+        margin: 5px 0;
+        font-size: 14px;
+        color: var(--dark-text);
+    }
+    .address-actions {
+        margin-top: 15px;
+    }
+    .address-actions a {
+        color: var(--primary-color);
+        text-decoration: none;
+        margin-right: 15px;
+        font-weight: 600;
+    }
+    .address-actions a:hover {
+        text-decoration: underline;
+    }
+    .empty-message {
+        text-align: center;
+        margin-top: 50px;
+        color: var(--secondary-color);
+        font-size: 18px;
+    }
+</style>
+
+<div class="container">
+    <h2>Meus Endereços</h2>
+    
+    <a href="{% url 'adicionar_endereco' %}" class="add-address-btn">Adicionar Novo Endereço</a>
+
+    <div class="address-list">
+        {% for endereco in enderecos %}
+            <div class="address-card">
+                <h3>Endereço {% if endereco.principal %}(Principal){% endif %}</h3>
+                <p>Celular: {{ endereco.celular }}</p>
+                <p>{{ endereco.rua }}, {{ endereco.numero }}</p>
+                {% if endereco.complemento %}
+                    <p>Complemento: {{ endereco.complemento }}</p>
+                {% endif %}
+                <p>{{ endereco.cidade }} - {{ endereco.estado }}, {{ endereco.cep }}</p>
+                <div class="address-actions">
+                    <a href="{% url 'editar_endereco' endereco.id %}">Editar</a>
+                    <a href="{% url 'remover_endereco' endereco.id %}" style="color: #dc3545;">Remover</a>
+                </div>
+            </div>
+        {% empty %}
+            <div class="empty-message">
+                <p>Você ainda não tem nenhum endereço cadastrado.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
