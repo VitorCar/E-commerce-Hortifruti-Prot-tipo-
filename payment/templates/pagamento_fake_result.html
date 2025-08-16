@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Status do Pagamento (Simulado){% endblock %}
+{% block content %}
+<style>
+  .btn-produto {
+  display: inline-block;
+  background-color: var(--secondary-color);
+  color: var(--light-text);
+  padding: 12px 25px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-produto:hover {
+  background-color: #689f38;
+  transform: translateY(-2px);
+}
+</style>
+  <div style="max-width:700px;margin:0 auto;background:#fff;border:1px solid #e9ecef;border-radius:12px;box-shadow:0 4px 14px var(--shadow-light);padding:24px;text-align:center;">
+    {% if status == "approved" %}
+      <h2 style="color:var(--accent-color);">Pagamento aprovado 🎉</h2>
+      <p>Seu pedido foi confirmado.</p>
+    {% elif status == "pending" %}
+      <h2 style="color:#ff9800;">Pagamento pendente ⏳</h2>
+      <p>Estamos aguardando a confirmação.</p>
+    {% else %}
+      <h2 style="color:#e53935;">Pagamento rejeitado ❌</h2>
+      <p>Tente novamente com outra forma de pagamento.</p>
+    {% endif %}
+    <a href="{% url 'lista_produtos' %}" class="btn-produto" style="display:inline-block;margin-top:14px;">Voltar às compras</a>
+  </div>
+{% endblock %}

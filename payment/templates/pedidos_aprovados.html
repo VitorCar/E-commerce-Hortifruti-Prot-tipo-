@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Pedidos Aprovados{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>📦 Meus Pedidos Aprovados</h2>
+
+    {% if pedidos %}
+        <div class="pedidos-lista">
+            {% for pedido in pedidos %}
+                <div class="pedido-card">
+                    <div class="pedido-header">
+                        <span><strong>Pedido #{{ pedido.id }}</strong></span>
+                        <span class="status aprovado">✔ {{ pedido.get_status_display }}</span>
+                    </div>
+                    <p><strong>Data:</strong> {{ pedido.data_pedido|date:"d/m/Y H:i" }}</p>
+                    <p><strong>Total:</strong> R$ {{ pedido.total }}</p>
+                    
+                    <details>
+                        <summary>Ver itens</summary>
+                        <ul>
+                            {% for item in pedido.get_itens %}
+                                <li>{{ item.nome }} — {{ item.quantidade }}x</li>
+                            {% empty %}
+                                <li>Nenhum item encontrado.</li>
+                            {% endfor %}
+                        </ul>
+                    </details>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Você ainda não tem pedidos aprovados.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.pedidos-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.pedido-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.pedido-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.status {
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+.status.aprovado {
+    background: #e6ffed;
+    color: #2e7d32;
+}
+details {
+    margin-top: 10px;
+}
+details summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: #1976d2;
+}
+</style>
+{% endblock %}

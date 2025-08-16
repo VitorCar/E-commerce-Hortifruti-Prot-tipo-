@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Pagamento (Simulado){% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/produtos.css' %}">
+
+<h1 style="text-align:center;margin-bottom:20px;">Pagamento (Simulado)</h1>
+
+<div class="checkout-card" style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1.1fr 0.9fr;gap:24px;">
+  <!-- Resumo -->
+  <section class="resumo" style="background:#fff;border:1px solid #e9ecef;border-radius:12px;box-shadow:0 4px 14px var(--shadow-light);padding:18px;">
+    <h2 style="margin:0 0 10px;">Resumo do Pedido</h2>
+    <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;">
+      {% for pid, item in carrinho.items %}
+      <li style="display:flex;justify-content:space-between;gap:10px;">
+        <span>{{ item.nome }} <small>({{ item.medida }})</small> x {{ item.quantidade }}</span>
+        <strong>R$ {{ item.preco|floatformat:2 }}</strong>
+      </li>
+      {% endfor %}
+    </ul>
+    <hr>
+    <div style="display:flex;justify-content:space-between;">
+      <span>Subtotal</span><strong>R$ {{ subtotal|floatformat:2 }}</strong>
+    </div>
+  </section>
+
+  <!-- Formulário de pagamento (simulado) -->
+  <section class="pagamento" style="background:#fff;border:1px solid #e9ecef;border-radius:12px;box-shadow:0 4px 14px var(--shadow-light);padding:18px;">
+    <h2 style="margin:0 0 16px;">Forma de Pagamento</h2>
+
+    <form action="{% url 'fake_process' %}" method="post" style="display:flex;flex-direction:column;gap:14px;">
+      {% csrf_token %}
+
+      <div style="display:flex;gap:10px;">
+        <label style="flex:1;background:#f8f9fa;padding:10px;border-radius:10px;border:1px solid #e9ecef;display:flex;gap:8px;align-items:center;">
+          <input type="radio" name="metodo" value="card" checked>
+          <span>Cartão</span>
+        </label>
+        <label style="flex:1;background:#f8f9fa;padding:10px;border-radius:10px;border:1px solid #e9ecef;display:flex;gap:8px;align-items:center;">
+          <input type="radio" name="metodo" value="pix">
+          <span>PIX</span>
+        </label>
+      </div>
+
+      <!-- Campos fake de cartão -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <input type="text" placeholder="Número do cartão (simulado)" style="padding:12px;border:1px solid #e9ecef;border-radius:8px;">
+        <input type="text" placeholder="Nome impresso" style="padding:12px;border:1px solid #e9ecef;border-radius:8px;">
+        <input type="text" placeholder="Validade (MM/AA)" style="padding:12px;border:1px solid #e9ecef;border-radius:8px;">
+        <input type="text" placeholder="CVV" style="padding:12px;border:1px solid #e9ecef;border-radius:8px;">
+      </div>
+
+      <!-- Simular resultado -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+        <label style="display:flex;gap:8px;align-items:center;">
+          <input type="radio" name="simular_resultado" value="approved" checked>
+          <span>Aprovar</span>
+        </label>
+        <label style="display:flex;gap:8px;align-items:center;">
+          <input type="radio" name="simular_resultado" value="pending">
+          <span>Pendente</span>
+        </label>
+        <label style="display:flex;gap:8px;align-items:center;">
+          <input type="radio" name="simular_resultado" value="rejected">
+          <span>Rejeitar</span>
+        </label>
+      </div>
+
+      <button type="submit" class="produto-btn" style="width:100%;">Finalizar pagamento (simulado)</button>
+      <p style="color:#6c757d;font-size:14px;margin:0;">* Nenhum dado é enviado para provedores de pagamento. Uso apenas para demonstração.</p>
+    </form>
+  </section>
+</div>
+
+<style>
+/* Reaproveita seu botão padrão (produto-btn). Se quiser, refine: */
+.produto-btn{
+  background: var(--accent-color);
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(40,167,69,.2);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.produto-btn:hover{ transform: translateY(-2px); box-shadow: 0 8px 22px rgba(40,167,69,.25); }
+@media (max-width: 920px){
+  .checkout-card{ grid-template-columns: 1fr; }
+}
+</style>
+{% endblock %}
