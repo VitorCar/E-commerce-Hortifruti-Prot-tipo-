@@ -20,7 +20,7 @@ from django.urls import path
 from core.views import HorListView, FrutListView, VegetListView, GraListView, ProdDetailView, AddToCartView, CarrinhoView, RemoverDoCarrinhoView
 from django.conf.urls.static import static
 from accounts.views import register_view, login_view, logout_view, adicionar_endereco, listar_enderecos, editar_endereco, remover_endereco
-
+from payment.views import CheckoutFakeView, FakePaymentProcessView, FakePaymentResultView, PedidosAprovadosView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HorListView.as_view(),  name='lista_produtos'),
@@ -37,7 +37,11 @@ urlpatterns = [
     path('produto/<int:pk>/', ProdDetailView.as_view(), name='produto_detail'),
     path('adicionar_ao_carrinho/', AddToCartView.as_view() , name='adicionar_ao_carrinho' ),
     path('carrinho/', CarrinhoView.as_view(), name='carrinho'),
-    path('remover_do_carrinho/', RemoverDoCarrinhoView.as_view(), name='remover_do_carrinho')
+    path('remover_do_carrinho/', RemoverDoCarrinhoView.as_view(), name='remover_do_carrinho'),
+    path('pagamento_simulado', CheckoutFakeView.as_view(), name='fake_checkout'), 
+    path('pagamento_simulado_processar', FakePaymentProcessView.as_view(), name='fake_process'),
+    path('pagamento_simulado_resultado', FakePaymentResultView.as_view(), name='fake_result'),
+    path("pedidos/aprovados/", PedidosAprovadosView.as_view(), name="pedidos_aprovados"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
