@@ -45,7 +45,12 @@
             </p>
           {% endif %}
           <p>Categoria: {{ vegetal.category.name }}</p>
-          <a href="{% url 'produto_detail' vegetal.pk %}" class="produto-btn">Comprar</a>
+          {% if vegetal.stock == 0 %}
+            <p class="estoque-esgotado">Esgotado</p>
+            <a class="produto-btn disabled" style="pointer-events: none; background-color: gray;">Indisponível</a>
+          {% else %}
+            <a href="{% url 'produto_detail' vegetal.pk %}" class="produto-btn">Comprar</a>
+          {% endif %}
         </div>
       </div>
     {% endfor %}

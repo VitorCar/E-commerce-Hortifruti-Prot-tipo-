@@ -84,7 +84,7 @@
         }
 
         .dropbtn {
-            color: var(--dark-text);
+            color: var(--light-text);
             padding: 14px 16px;
             font-size: 16px;
             border: none;
@@ -156,6 +156,7 @@
             {% if user.is_authenticated %}
                 <li class="welcome-message">Olá, {{ user.username }}</li>
                 <li><a href="{% url 'lista_de_enderecos' %}">Meus Endereços</a></li>
+                <li><a href="{% url 'pedidos_aprovados' %}">Pedidos</a></li>
                 <li><a href="{% url 'logout' %}">Sair</a></li>
             {% else %}
                 <li><a href="{% url 'register' %}">Cadastre-se</a></li>

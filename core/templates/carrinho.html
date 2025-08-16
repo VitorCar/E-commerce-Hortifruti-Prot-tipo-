@@ -5,6 +5,26 @@
 {% block title %}Meu Carrinho{% endblock %}
 
 {% block content %}
+<style>
+
+  .btn-produto {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: var(--light-text);
+    padding: 12px 25px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-produto:hover {
+
+  background-color: #689f38;
+  transform: translateY(-2px);
+}
+</style>
+
 <link rel="stylesheet" href="{% static 'css/carrinho.css' %}">
 
 <div class="carrinho-container">
@@ -53,7 +73,8 @@
       <h3>Resumo do Pedido</h3>
       <p>Subtotal: R$ {{ subtotal|floatformat:2 }}</p>
     </div> <!-- Fechando resumo-carrinho -->
-    
+    <a href="{% url 'fake_checkout' %}" class="btn-produto" style="margin-left:8px;">Pagamento simulado</a>
+
   {% else %}
     <p class="carrinho-vazio">Seu carrinho está vazio.</p>
   {% endif %}

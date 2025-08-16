@@ -274,3 +274,14 @@ margin: 0 auto;
   font-weight: bold;
   font-size: 1.2em;
 }
+
+.estoque-esgotado {
+  color: red;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.produto-btn.disabled {
+  background-color: #aaa !important;
+  cursor: not-allowed;
+}

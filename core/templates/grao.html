@@ -45,8 +45,12 @@
             </p>
           {% endif %}
           <p>Categoria: {{ grao.category.name }}</p>
-          <a href="{% url 'produto_detail' grao.pk %}" class="produto-btn">Comprar</a>
-
+          {% if grao.stock == 0 %}
+            <p class="estoque-esgotado">Esgotado</p>
+            <a class="produto-btn disabled" style="pointer-events: none; background-color: gray;">Indisponível</a>
+          {% else %}
+            <a href="{% url 'produto_detail' grao.pk %}" class="produto-btn">Comprar</a>
+          {% endif %}
         </div>
       </div>
     {% endfor %}
