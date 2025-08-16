@@ -93,9 +93,11 @@ O sistema de pagamento atualmente é **apenas uma simulação**.
 
 ---
 
-## 📷 Screenshots (opcional)
-*(Aqui você pode adicionar imagens dos templates — página de produtos, carrinho, pedidos etc.)*  
+## 🎥 Demonstração do Projeto
 
+Acesse minha publicação no LinkedIn para assistir ao vídeo completo de demonstração do sistema:
+
+🔗 [Clique aqui para assistir à demonstração no LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7362615831660240896/)
 ---
 
 ## 👨‍💻 Autor
